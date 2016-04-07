@@ -1,0 +1,18 @@
+{
+  "name": "virtual-sensor",
+  "version": "1.0.0",
+  "description": "Generates random output for a range of digital and analog sensors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sensors"
+  ],
+  "author": "Daniel Holmlund",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "commander": "^2.9.0"
+  }
+}

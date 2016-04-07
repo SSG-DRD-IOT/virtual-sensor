@@ -1,0 +1,6 @@
+{
+    "mqtt" : {
+        "url" : "mqtt://localhost"
+    },
+    "interval" : "2000"
+}

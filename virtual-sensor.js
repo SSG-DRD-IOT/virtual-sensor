@@ -47,12 +47,13 @@ setInterval(function() {
     var lightTemp = getRandomTemp(200, 1000);
     var current_time = (new Date).getTime();
 
-    var str = '{"sensor_id": "'
-            + tempSensorName
-            + '", "value": "'
-            + temp
-            + '", "timestamp":"'
-            + current_time +'"}';
+    var json ={
+      sensor_id : "temperature",
+      value : temp,
+      timestamp : current_time
+    }
+
+    var str = JSON.stringify(json)
 
     console.log(str);
 

@@ -2,5 +2,8 @@
     "mqtt" : {
         "url" : "mqtt://localhost"
     },
+    "KEY_FILE" : "certs/server.key",
+    "CERT_FILE" : "certs/server.crt",
+    "TRUSTED_CA_LIST_FILE" : "certs/ca.crt",
     "interval" : "2000"
 }

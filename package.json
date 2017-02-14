@@ -1,7 +1,7 @@
 {
   "name": "virtual-sensor",
-  "version": "1.0.0",
-  "description": "Generates random output for a range of digital and analog sensors",
+  "version": "1.0.5",
+  "description": "Generates random output for a temperature sensor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,8 +12,6 @@
   "author": "Daniel Holmlund",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^1.1.1",
-    "lodash" : "latest",
-    "commander": "^2.9.0"
+    "mqtt": "latest"
   }
 }

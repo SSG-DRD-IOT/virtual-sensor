@@ -49,21 +49,34 @@ function getRandomTemp(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-
+/*
+  Runs a function to emit a temperature sensor value
+  every *config.interval* milliseconds
+*/
 setInterval(function() {
+    // Get a random temperature integer
     var temp = getRandomTemp(17, 30);
 
+    // Get the current time
     var current_time = (new Date).getTime();
 
-    var json ={
+    /*
+      This JSON structure is extremely important
+      future labs will assume that every temperature
+      reading has a "sensor_id", "value" and "timestamp"
+    */
+    var json = {
       sensor_id : tempSensorName,
       value : temp,
       timestamp : current_time
-    }
+    };
 
-    var str = JSON.stringify(json)
+    // Convert the JSON object to a string
+    var str = JSON.stringify(json);
 
+    // Log the string to the console
     console.log(str);
 
+    // Publish the temperature reading string on the MQTT topic
     client.publish(tempSensorTopic, str);
 }, config.interval);

@@ -22,12 +22,17 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load the library dependencies
-var mqtt = require('mqtt');
-var fs = require('fs');
+// Load the application configuration file
+var config = require("./config.json")
 
-// Load the application specific configurations
-var config = require("./config.json");
+// A library to colorize console output
+var chalk = require('chalk');
+
+// Require MQTT and setup the connection to the broker
+var mqtt = require('mqtt');
+
+// NodeJS Library to interact with a filesystem
+var fs = require('fs');
 
 var KEY = fs.readFileSync(config.KEY_FILE);
 var CERT = fs.readFileSync(config.CERT_FILE);
@@ -54,6 +59,9 @@ var options = {
 // conncect to the *config.mqtt.url* value
 var client = mqtt.connect(options);
 
+// Log virtual-sensor as started
+console.log(chalk.bold.yellow("Virtual Sensor is started and attempting to connect to an MQTT broker"));
+
 // Create variables for the sensor name and topic
 var tempSensorName = "temperature";
 var tempSensorTopic = "sensors/" + tempSensorName + "/data";
@@ -61,7 +69,46 @@ var tempSensorTopic = "sensors/" + tempSensorName + "/data";
 // On the client connect event run a function
 // to log the event to the console
 client.on('connect', function () {
-    console.log("Connected to the MQTT server on " + config.mqtt.url);
+    console.log(chalk.bold.yellow("Connected to the MQTT server on " + config.mqtt.url));
+
+    /*
+      Runs a function to emit a temperature sensor value
+      every *config.interval* milliseconds
+    */
+    setInterval(function() {
+        // Get a random temperature integer
+        var temp = getRandomTemp(17, 30);
+
+        // Get the current time
+        var current_time = (new Date).getTime();
+
+        /*
+          This JSON structure is extremely important
+          future labs will assume that every temperature
+          reading has a "sensor_id", "value" and "timestamp"
+        */
+        var json = {
+          sensor_id : tempSensorName,
+          value : temp,
+          timestamp : current_time
+        };
+
+        // Convert the JSON object to a string
+        var str = JSON.stringify(json);
+
+        // Log the string to the console
+        console.log(str);
+
+        // Publish the temperature reading string on the MQTT topic
+        client.publish(tempSensorTopic, str);
+
+    }, config.interval);
+});
+
+// MQTT error function - Client unable to connect
+client.on('error', function () {
+    console.log(chalk.bold.yellow("Unable to connect to MQTT server"));
+    process.exit();
 });
 
 /*
@@ -71,36 +118,3 @@ function getRandomTemp(min, max) {
     // Returns a random number between min (inclusive) and max (exclusive)
   return Math.round(Math.random() * (max - min) + min);
 }
-
-/*
-  Runs a function to emit a temperature sensor value
-  every *config.interval* milliseconds
-*/
-setInterval(function() {
-    // Get a random temperature integer
-    var temp = getRandomTemp(17, 30);
-
-    // Get the current time
-    var current_time = (new Date).getTime();
-
-    /*
-      This JSON structure is extremely important
-      future labs will assume that every temperature
-      reading has a "sensor_id", "value" and "timestamp"
-    */
-    var json = {
-      sensor_id : tempSensorName,
-      value : temp,
-      timestamp : current_time
-    };
-
-    // Convert the JSON object to a string
-    var str = JSON.stringify(json);
-
-    // Log the string to the console
-    console.log(str);
-
-    // Publish the temperature reading string on the MQTT topic
-    client.publish(tempSensorTopic, str);
-
-}, config.interval);

@@ -12,6 +12,7 @@
   "author": "Daniel Holmlund",
   "license": "MIT",
   "dependencies": {
-    "mqtt": "latest"
+    "mqtt": "latest",
+    "chalk" : "latest"
   }
 }

@@ -212,13 +212,13 @@ if (options.sensor.analog != undefined) {
     max = options.analog.max;
 }
 
-if (options.connection.tls != undefined) {
+if (options.encryption.tls != undefined) {
     // NodeJS Library to interact with a filesystem
     var fs = require('fs');
 
-    var KEY = fs.readFileSync(config.KEY_FILE);
-    var CERT = fs.readFileSync(config.CERT_FILE);
-    var TRUSTED_CA_LIST = [fs.readFileSync(config.TRUSTED_CA_LIST_FILE)];
+    var KEY = fs.readFileSync(options.encryption.key);
+    var CERT = fs.readFileSync(options.encryption.cert);
+    var TRUSTED_CA_LIST = [fs.readFileSync(options.encryption.ca)];
 
     var HOST = 'localhost';
     if (options.connection.hostname != undefined) {
@@ -227,7 +227,7 @@ if (options.connection.tls != undefined) {
 
     // Set the default port number
     var port = 1883;
-    if (options.connection.tls != undefined) {
+    if (options.encryption.tls != undefined) {
       port = 8883;
     }
     if (options.connection.port != undefined){

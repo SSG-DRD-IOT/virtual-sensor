@@ -22,9 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Load the application configuration file
-var config = require("./config.json")
-
 // A library to colorize console output
 var chalk = require('chalk');
 
@@ -252,15 +249,13 @@ if (options.encryption.tls != undefined) {
     // Log virtual-sensor as started
     info("Connecting to MQTT-TLS broker at mqtts://" + mqttOptions.host + ":" + port + "/");
 
-    // Create an MQTT-TLS client named client that is
-    // conncect to the *config.mqtt.url* value
+    // Create an MQTT-TLS client
     var client = mqtt.connect(mqttOptions);
 } else {
     // Log virtual-sensor as started
     info("Connecting to MQTT broker at mqtt://" + options.connection.hostname + ":" + port + "/");
 
-    // Create an MQTT client named client that is
-    // conncect to the *config.mqtt.url* value
+    // Create an MQTT client
     var client = mqtt.connect("mqtt://" + options.connection.hostname + ":" + port + "/");
 }
 
@@ -274,7 +269,7 @@ client.on('connect', function() {
     info("Publishing sensors data on " + chalk.bold.white(topic));
     /*
       Runs a function to emit a temperature sensor value
-      every *config.interval* milliseconds
+      every *delay* milliseconds
     */
     setInterval(function() {
         // Get a random integer value between a min and a max

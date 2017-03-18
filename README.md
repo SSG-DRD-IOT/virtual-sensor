@@ -69,7 +69,7 @@ node virtual-sensor.js --name "relay" --digital
 ```
 
 ### Encryption Options
-Enable MQTT-TLS. This changes the port to 8883 and assumes
+Enable MQTT-TLS. This changes the port to 8883 and assumes the certificates and key files to be stored in the /etc/mosquitto directory.
 
 ```bash
 node virtual-sensor.js --tls

@@ -1,15 +1,15 @@
 
-A Virtual Sensor Application
+# A Virtual Sensor Application
 
   Generates sensor data traffic over MQTT and MQTT-TLS
+```
+ Main options
 
-Main options
-
-  -h, --help           Display this usage guide.                                            
-  -v, --verbose        Display extra information                                            
-  -d, --debug          Display debugging information                                        
-  -l, --delay number   the delay between sensor readings in milliseconds. Default is 1000ms
-  -t, --timeout ms     Stop emitting sensors readings after timeout number of milliseconds  
+   -h, --help           Display this usage guide.                                            
+   -v, --verbose        Display extra information                                            
+   -d, --debug          Display debugging information                                        
+   -l, --delay number   the delay between sensor readings in milliseconds. Default is 1000ms
+   -t, --timeout ms     Stop emitting sensors readings after timeout number of milliseconds  
 
 Connection options
 
@@ -33,5 +33,4 @@ Analog Sensor Options
 
   --min number   the minimum value emitted
   --max number   the maximun value emitted
-
-Digital Sensor Options
+```

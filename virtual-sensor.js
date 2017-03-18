@@ -41,9 +41,9 @@ const optionDefinitions = [{
         group: 'main'
     },
     {
-        name: 'verbose',
-        description: 'Display extra information',
-        alias: 'v',
+        name: 'silent',
+        description: 'Suppresses extra information',
+        alias: 's',
         type: Boolean,
         group: 'main'
     },
@@ -177,12 +177,13 @@ const sections = [{
         header: 'Analog Sensor Options',
         optionList: optionDefinitions,
         group: 'analog'
-    },
-    {
-        header: 'Digital Sensor Options',
-        optionList: optionDefinitions,
-        group: 'digital'
     }
+    // ,
+    // {
+    //     header: 'Digital Sensor Options',
+    //     optionList: optionDefinitions,
+    //     group: 'digital'
+    // }
 ];
 
 // Parse the command line arguments
@@ -204,10 +205,21 @@ var max = 1;
 
 // If the --analog option is used or no --digital option is present
 // Set the max and min to their default values
-if (options.sensor.analog != undefined) {
+if (options.sensor.digital != true) {
     min = options.analog.min;
     max = options.analog.max;
 }
+
+
+// Set the default port number
+var port = 1883;
+if (options.encryption.tls != undefined) {
+  port = 8883;
+}
+if (options.connection.port != undefined){
+  port = options.connection.port;
+}
+
 
 if (options.encryption.tls != undefined) {
     // NodeJS Library to interact with a filesystem
@@ -220,15 +232,6 @@ if (options.encryption.tls != undefined) {
     var HOST = 'localhost';
     if (options.connection.hostname != undefined) {
       var HOST = options.connection.hostname;
-    }
-
-    // Set the default port number
-    var port = 1883;
-    if (options.encryption.tls != undefined) {
-      port = 8883;
-    }
-    if (options.connection.port != undefined){
-      port = options.connection.port;
     }
 
     // Setup MQTT-TLS options
@@ -325,7 +328,7 @@ function randomIntBetween(min, max) {
 
 function info(str) {
     // Log virtual-sensor as started
-    if (options.main.verbose == true) {
+    if (options.main.silent != true) {
         console.log(chalk.bold.yellow(str));
     }
 }

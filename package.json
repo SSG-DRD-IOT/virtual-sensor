@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node virtual-sensor.js"
+    "start": "node virtual-sensor.js --tls"
   },
   "keywords": [
     "sensors"

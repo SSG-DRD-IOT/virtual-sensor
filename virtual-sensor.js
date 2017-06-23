@@ -22,6 +22,8 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+'use strict';
+
 // A library to colorize console output
 var chalk = require('chalk');
 

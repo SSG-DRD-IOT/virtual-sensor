@@ -1,10 +1,28 @@
 
 # A Virtual Sensor Application
 
+The virtual sensor application is a handy utility to generate sensor data in JSON format and publish it over MQTT or MQTT-TLS. This is practical when you don't have physical sensors available or if you'd like to simulate a variety of data for testing purposes.
+
+During the rest of these labs, you may continue to use your physical sensors, or if you like you can use this virtual sensor program. The labs in the rest of this workshop are compatible with both approaches. 
+
+## Download and Install 
+
+The source code can be found on Github in the SSG-DRD-IOT organization.  You may need to install **git** first.
+```bash
+sudo apt-get install git
+```
+
+```bash
+git clone https://github.com/SSG-DRD-IOT/virtual-sensor
+```
+
+Here is the help text of the virtual sensor program.
+```
+
   Generates sensor data traffic over MQTT and MQTT-TLS.
 
   Data is always sent to a topic like *sensors/__name of sensor__/data* where the name is set by the **-n** option.
-```
+
  Main options
 
    -h, --help           Display this usage guide.                                            

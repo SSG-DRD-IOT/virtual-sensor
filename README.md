@@ -16,6 +16,10 @@ sudo apt-get install git
 git clone https://github.com/SSG-DRD-IOT/virtual-sensor
 ```
 
+```bash
+cd virtual-sensor
+```
+
 Here is the help text of the virtual sensor program.
 ```
 
@@ -54,6 +58,13 @@ Analog Sensor Options
   --min number   the minimum value emitted
   --max number   the maximun value emitted
 ```
+
+## Setup
+First you must install the dependencies
+```shell
+npm install
+```
+Now you can continue with the examples
 
 ## Examples
 

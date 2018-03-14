@@ -80,6 +80,23 @@ Publishing sensors data on sensors/temperature/data
 {"sensor_id":"temperature","value":26,"timestamp":1489862669660}
 ```
 
+### Subscribing  
+
+If you want to see the data going into your MQTT topic you can use mosquitto to subscribe to that topic and see the data that is coming in. 
+
+```
+mosquitto_sub -h localhost -p 1883 -t "sensors/temperature/data"
+```
+
+You can also subscribe to ALL topics by using #:
+
+```
+mosquitto_sub -h localhost -p 1883 -t "#"
+
+```
+
+
+
 ### Analog and Digital Data Sources
 Create a Analog data source named "light-sensor" with a minimum output value of 300 and a maximum of 500
 ```bash

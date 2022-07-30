@@ -23,7 +23,7 @@
  */
 
 // Command line argument definitions
-const optionDefinitions = [{
+export const optionDefinitions = [{
         name: 'help',
         description: 'Display this usage guide.',
         alias: 'h',
@@ -140,7 +140,7 @@ const optionDefinitions = [{
 ]
 
 
-const sections = [{
+export const sections = [{
         header: 'A Virtual Sensor Application',
         content: 'Generates sensor data traffic over MQTT and MQTT-TLS'
     },
@@ -171,10 +171,7 @@ const sections = [{
     }
 ];
 
-
-var ex = {
-  optionDefinitions: optionDefinitions,
-  sections: sections
+export default {
+    optionDefinitions: optionDefinitions,
+    sections: sections
 }
-
-module.exports = ex;

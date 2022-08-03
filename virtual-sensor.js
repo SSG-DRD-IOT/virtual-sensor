@@ -25,22 +25,26 @@
 'use strict';
 
 // A library to colorize console output
-var chalk = require('chalk');
+import chalk from 'chalk'
 
 // Require MQTT and setup the connection to the broker
-var mqtt = require('mqtt');
+import mqtt from 'mqtt'
 
 // Libary to parse command line arguments
-const commandLineArgs = require('command-line-args')
-const getUsage = require('command-line-usage');
+import commandLineArgs from 'command-line-args'
+import getUsage from 'command-line-usage';
 
 // Command line argument definitions
-const cmdLineArgsDefinitions = require('./optionDefinitions')
+import cmdLineArgsDefinitions from './optionDefinitions.js'
 const optionDefinitions = cmdLineArgsDefinitions.optionDefinitions
 const sections = cmdLineArgsDefinitions.sections
 
+// NodeJS Library to interact with a filesystem
+import fs from 'fs';
+
 // Parse the command line arguments
 const options = commandLineArgs(optionDefinitions);
+
 // Print the help text
 if (options.main.help) {
     info(getUsage(sections))
@@ -66,24 +70,20 @@ if (options.sensor.digital != true) {
 // Set the default port number
 var port = 1883;
 if (options.encryption.tls != undefined) {
-  port = 8883;
+    port = 8883;
 }
-if (options.connection.port != undefined){
-  port = options.connection.port;
+if (options.connection.port != undefined) {
+    port = options.connection.port;
 }
-
 
 if (options.encryption.tls != undefined) {
-    // NodeJS Library to interact with a filesystem
-    var fs = require('fs');
-
     var KEY = fs.readFileSync(options.encryption.key);
     var CERT = fs.readFileSync(options.encryption.cert);
     var TRUSTED_CA_LIST = [fs.readFileSync(options.encryption.ca)];
 
     var HOST = 'localhost';
     if (options.connection.hostname != undefined) {
-      var HOST = options.connection.hostname;
+        var HOST = options.connection.hostname;
     }
 
     // Setup MQTT-TLS options
@@ -119,14 +119,14 @@ var topic = "sensors/" + options.sensor.name + "/data";
 
 // On the client connect event run a function
 // to log the event to the console
-client.on('connect', function() {
+client.on('connect', function () {
     info("Connected to MQTT server at " + "mqtt://" + options.connection.hostname + ":" + port + "/");
     info("Publishing sensors data on " + chalk.bold.white(topic));
     /*
       Runs a function to emit a temperature sensor value
       every *delay* milliseconds
     */
-    setInterval(function() {
+    setInterval(function () {
         // Get a random integer value between a min and a max
         var value = randomIntBetween(min, max);
 
@@ -159,14 +159,14 @@ client.on('connect', function() {
 
     if (options.main.timeout != undefined) {
         info("Timeout set for " + options.main.timeout + "ms")
-        setInterval(function() {
+        setInterval(function () {
             process.exit();
         }, options.main.timeout)
     }
 });
 
 // MQTT error function - Client unable to connect
-client.on('error', function() {
+client.on('error', function () {
     info("Unable to connect to MQTT server");
     process.exit();
 });

@@ -3,11 +3,32 @@
 
 The virtual sensor application is a handy utility to generate sensor data in JSON format and publish it over MQTT or MQTT-TLS. This is practical when you don't have physical sensors available or if you'd like to simulate a variety of data for testing purposes.
 
-During the rest of these labs, you may continue to use your physical sensors, or if you like you can use this virtual sensor program. The labs in the rest of this workshop are compatible with both approaches. 
+During the rest of these labs, you may continue to use your physical sensors, or if you like you can use this virtual sensor program. The labs in the rest of this workshop are compatible with both approaches.
 
-## Download and Install 
+## Download and Install
 
 The source code can be found on Github in the SSG-DRD-IOT organization.  You may need to install **git** first.
+
+### Mosquitto
+
+Make sure to install mosquitto.
+
+If you are on Mac,
+
+```bash
+brew install mosquitto
+brew services start mosquitto
+```
+
+If you are on Ubuntu:
+
+```bash
+sudo apt install -y mosquitto
+sudo systemctl start mosquitto
+```
+
+### Virtual Sensor
+
 ```bash
 sudo apt-get install git
 ```
@@ -20,9 +41,10 @@ git clone https://github.com/SSG-DRD-IOT/virtual-sensor
 cd virtual-sensor
 ```
 
+mosquitto
 Here is the help text of the virtual sensor program.
-```
 
+```bash
   Generates sensor data traffic over MQTT and MQTT-TLS.
 
   Data is always sent to a topic like *sensors/__name of sensor__/data* where the name is set by the **-n** option.
@@ -60,10 +82,13 @@ Analog Sensor Options
 ```
 
 ## Setup
+
 First you must install the dependencies
+
 ```shell
 npm install
 ```
+
 Now you can continue with the examples
 
 ## Examples
@@ -71,6 +96,7 @@ Now you can continue with the examples
 ### Default parameters
 
 If you don't specify any parameters an analog sensor named *"temperature"* will a minimum of 17 and maximum value of 30 will be created. The MQTT traffic will be sent to a MQTT broker on the *sensors/temperature/data* topic on the localhost machine and data will be echoed to the console every 2 seconds.
+
 ```bash
 $ node virtual-sensor.js
 Connected to MQTT server at mqtt://localhost:1883/
@@ -82,7 +108,7 @@ Publishing sensors data on sensors/temperature/data
 
 ### Subscribing  
 
-If you want to see the data going into your MQTT topic you can use mosquitto to subscribe to that topic and see the data that is coming in. 
+If you want to see the data going into your MQTT topic you can use mosquitto to subscribe to that topic and see the data that is coming in.
 
 ```
 mosquitto_sub -h localhost -p 1883 -t "sensors/temperature/data"
@@ -95,26 +121,30 @@ mosquitto_sub -h localhost -p 1883 -t "#"
 
 ```
 
-
-
 ### Analog and Digital Data Sources
+
 Create a Analog data source named "light-sensor" with a minimum output value of 300 and a maximum of 500
+
 ```bash
 node virtual-sensor.js --name "light-sensor" --min=300 --max=500
 ```
 
 Create a digital GPIO data source named "relay"
+
 ```bash
 node virtual-sensor.js --name "relay" --digital
 ```
 
 ### Hostname and Port Options
+
 Create a digital GPIO data source named "relay"
+
 ```bash
 node virtual-sensor.js --name "relay" --digital
 ```
 
 ### Encryption Options
+
 Enable MQTT-TLS. This changes the port to 8883 and assumes the certificates and key files to be stored in the /etc/mosquitto directory.
 
 ```bash
@@ -122,12 +152,15 @@ node virtual-sensor.js --tls
 ```
 
 ### Delay and Timeout options
+
 Put a 5 second delay between sensor readings.
+
 ```bash
 node virtual-sensor.js --delay 5000
 ```
 
 Stop virtual sensor after 10 seconds.
+
 ```bash
 node virtual-sensor.js --timeout 10000
 ```
